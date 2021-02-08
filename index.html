@@ -6,14 +6,21 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
   </head>
   <body>
+
   </body>
 
   <script>
    // reduce
-   const sum = _.reduce([1, 2, 3], function(total, num) {
-     return total + num;
-   }, 0);
+   const links = [
+     "https://google.com",
+     "https://devcamp.com",
+     "httpse://airbnb.com"
+   ];
 
-   console.log(sum)
+   const webLinks = _.reduce(links, function(content, link){
+     return `<a href='${link}'>${link}</a><br>`.concat(content);
+   }, '')
+
+   console.log(webLinks)
   </script>
 </html>
