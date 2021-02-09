@@ -9,28 +9,27 @@
   </body>
 
   <script>
-
-    class devcampError extends Error {
-      constructor(msg = 'An error occured', ...params) {
+    class ApiError extends Error {
+      constructor(msg = 'An api error occured', ...params) {
         super(...params);
 
-      this.msg = msg;
+        this.msg = msg;
+      }
     }
-  }
+    var request = new XMLHttpRequest();
 
-    function siteComponent(func) {
-      return func();
+    request.open('GET', 'https://api.dailysmar', true);
+
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        var data = JSON.parse(request.responseText);
+        console.log(data);
+      } else {
+        throw new ApiError('ApiError', `An API error ocurred with a status code of ${request.status}`)
+      }
     }
 
-
-
-    widget = () => {
-      return '<div>Hi there</div>';
-    }
-    try {
-      console.log(siteComponent('oops'));
-    } catch(e) {
-     throw new devcampError('DecampError', 'My custom error message');
-    }
+    request.send();
   </script>
+
 </html>
