@@ -2,25 +2,35 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Lodash Demo</title>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+    <title>Error Management</title>
   </head>
   <body>
 
   </body>
 
   <script>
-   // reduce
-   const links = [
-     "https://google.com",
-     "https://devcamp.com",
-     "httpse://airbnb.com"
-   ];
 
-   const webLinks = _.reduce(links, function(content, link){
-     return `<a href='${link}'>${link}</a><br>`.concat(content);
-   }, '')
+    class devcampError extends Error {
+      constructor(msg = 'An error occured', ...params) {
+        super(...params);
 
-   console.log(webLinks)
+      this.msg = msg;
+    }
+  }
+
+    function siteComponent(func) {
+      return func();
+    }
+
+
+
+    widget = () => {
+      return '<div>Hi there</div>';
+    }
+    try {
+      console.log(siteComponent('oops'));
+    } catch(e) {
+     throw new devcampError('DecampError', 'My custom error message');
+    }
   </script>
 </html>
